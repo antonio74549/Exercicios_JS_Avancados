@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="username" type="text" />
+    <span id="feedback"></span>
+
+    <script>
+      (function () {
+        document
+          .getElementById("username")
+          .addEventListener("input", async (e) => {
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = "";
+
+            if (e.target.value) {
+              try {
+                const exists = await checkUsername(e.target.value);
+                feedback.textContent = exists
+                  ? "Nome já em uso"
+                  : "Nome disponível";
+              } catch (error) {
+                feedback.textContent = "Erro na verificação";
+              }
+            }
+          });
+
+        function checkUsername(username) {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(username === "admin");
+            }, 2000);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

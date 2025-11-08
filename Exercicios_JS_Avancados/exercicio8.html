@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <progress id="progress" value="0" max="100"></progress>
+      <span id="status">Download iniciado...</span>
+    </div>
+
+    <script>
+      (function () {
+        function simulateDownload() {
+          const progress = document.getElementById("progress");
+          const status = document.getElementById("status");
+
+          let value = 0;
+          const interval = setInterval(() => {
+            value += Math.random() * 10;
+            progress.value = value;
+
+            if (value >= 100) {
+              clearInterval(interval);
+              status.textContent = "Download completo";
+            }
+          }, 200);
+        }
+
+        simulateDownload();
+      })();
+    </script>
+  </body>
+</html>

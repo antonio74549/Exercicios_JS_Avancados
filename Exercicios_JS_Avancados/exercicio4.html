@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        const nestedObj = { user: { name: "Ana", age: 20 } };
+
+        function flattenObject(obj, prefix = "") {
+          return Object.keys(obj).reduce((acc, key) => {
+            const newKey = prefix ? `${prefix}.${key}` : key;
+            if (typeof obj[key] === "object" && obj[key] !== null) {
+              return { ...acc, ...flattenObject(obj[key], newKey) };
+            } else {
+              acc[newKey] = obj[key];
+              return acc;
+            }
+          }, {});
+        }
+
+        console.log("Flattened object:", flattenObject(nestedObj));
+      })();
+    </script>
+  </body>
+</html>

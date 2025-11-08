@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        async function f1() {
+          return new Promise((r) => setTimeout(() => r("Primeira"), 1000));
+        }
+
+        async function f2() {
+          return new Promise((r) => setTimeout(() => r("Segunda"), 500));
+        }
+
+        async function runSequentially() {
+          console.log(await f1());
+          console.log(await f2());
+        }
+
+        runSequentially();
+      })();
+    </script>
+  </body>
+</html>

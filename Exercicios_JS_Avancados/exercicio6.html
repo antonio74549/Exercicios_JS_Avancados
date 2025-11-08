@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="board"></div>
+    <button onclick="startGame()">Iniciar</button>
+
+    <script>
+      (function () {
+        function startGame() {
+          const cards = ["A", "B", "C", "D"]
+            .map((c) => c.repeat(2))
+            .join("")
+            .split("");
+          shuffle(cards);
+          renderBoard(cards);
+        }
+
+        function shuffle(arr) {
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+        }
+
+        function renderBoard(cards) {
+          const board = document.getElementById("board");
+          board.innerHTML = "";
+          cards.forEach((card, index) => {
+            const div = document.createElement("div");
+            div.classList.add("card");
+            div.textContent = card;
+            div.onclick = () => flipCard(div, card);
+            board.appendChild(div);
+          });
+        }
+
+        let flippedCards = [];
+        function flipCard(card, value) {
+          if (flippedCards.length < 2) {
+            card.textContent = value;
+            flippedCards.push({ card, value });
+
+            if (flippedCards.length === 2) {
+              setTimeout(checkMatch, 1000);
+            }
+          }
+        }
+
+        function checkMatch() {
+          const [card1, card2] = flippedCards;
+          if (card1.value !== card2.value) {
+            card1.card.textContent = "";
+            card2.card.textContent = "";
+          }
+          flippedCards = [];
+        }
+
+        window.startGame = startGame;
+      })();
+    </script>
+  </body>
+</html>

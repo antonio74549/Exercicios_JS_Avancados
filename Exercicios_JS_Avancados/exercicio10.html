@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: white;
+        color: black;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      body.dark-mode {
+        background-color: black;
+        color: white;
+      }
+
+      .card {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+        display: inline-block;
+        margin: 5px;
+        text-align: center;
+        line-height: 100px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <body id="body">
+      <button onclick="toggleDarkMode()">Alternar modo</button>
+    </body>
+
+    <script>
+      (function () {
+        function toggleDarkMode() {
+          const body = document.getElementById("body");
+          const isDark = localStorage.getItem("darkMode") === "true";
+
+          body.classList.toggle("dark-mode", !isDark);
+          localStorage.setItem("darkMode", !isDark);
+
+          window.addEventListener("load", () => {
+            const isDark = localStorage.getItem("darkMode") === "true";
+            body.classList.toggle("dark-mode", isDark);
+          });
+        }
+
+        window.addEventListener("load", toggleDarkMode);
+        window.toggleDarkMode = toggleDarkMode;
+      })();
+    </script>
+  </body>
+</html>
